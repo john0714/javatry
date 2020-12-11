@@ -20,12 +20,14 @@ package org.docksidestage.bizfw.basic.buyticket;
  */
 
 public class MultiDayTicket implements Ticket {
+
+    // TODO 次回は早めにレビューをもらう予定
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
     private final int displayPrice;
     private final TicketType type;
-    private final TicketDay days = new TicketDay();
+    private final TicketDay days = new TicketDay(); // これをインスタンスに移動
     private boolean alreadyIn;
     private int entrance;
 
