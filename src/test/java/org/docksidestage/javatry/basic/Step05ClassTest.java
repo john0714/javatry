@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2020 the original author or authors.
+ * Copyright 2019-2019 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,8 +15,10 @@
  */
 package org.docksidestage.javatry.basic;
 
+import org.docksidestage.bizfw.basic.buyticket.Ticket;
 import org.docksidestage.bizfw.basic.buyticket.TicketBooth;
 import org.docksidestage.bizfw.basic.buyticket.TicketBooth.TicketShortMoneyException;
+import org.docksidestage.bizfw.basic.buyticket.TicketBuyResult;
 import org.docksidestage.unit.PlainTestCase;
 
 /**
@@ -38,8 +40,8 @@ public class Step05ClassTest extends PlainTestCase {
     public void test_class_howToUse_basic() {
         TicketBooth booth = new TicketBooth();
         booth.buyOneDayPassport(7400);
-        int sea = booth.getQuantity();
-        log(sea); // your answer? => 
+        int sea = booth.getOneDayQuantity();
+        log(sea); // your answer? => 9(O)
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
@@ -47,20 +49,20 @@ public class Step05ClassTest extends PlainTestCase {
         TicketBooth booth = new TicketBooth();
         booth.buyOneDayPassport(10000);
         Integer sea = booth.getSalesProceeds();
-        log(sea); // your answer? => 
+        log(sea); // your answer? => 10000(O) → 7400
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
     public void test_class_howToUse_nosales() {
         TicketBooth booth = new TicketBooth();
         Integer sea = booth.getSalesProceeds();
-        log(sea); // your answer? => 
+        log(sea); // your answer? => 0(X) -> null
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
     public void test_class_howToUse_wrongQuantity() {
         Integer sea = doTest_class_ticket_wrongQuantity();
-        log(sea); // your answer? => 
+        log(sea); // your answer? => 9(O) → 10
     }
 
     private Integer doTest_class_ticket_wrongQuantity() {
@@ -72,7 +74,7 @@ public class Step05ClassTest extends PlainTestCase {
         } catch (TicketShortMoneyException continued) {
             log("Failed to buy one-day passport: money=" + handedMoney, continued);
         }
-        return booth.getQuantity();
+        return booth.getOneDayQuantity();
     }
 
     // ===================================================================================
@@ -84,7 +86,7 @@ public class Step05ClassTest extends PlainTestCase {
      */
     public void test_class_letsFix_ticketQuantityReduction() {
         Integer sea = doTest_class_ticket_wrongQuantity();
-        log(sea); // should be max quantity, visual check here
+        log(sea); // should be max quantity, visual check here → 10
     }
 
     /**
@@ -95,7 +97,7 @@ public class Step05ClassTest extends PlainTestCase {
         TicketBooth booth = new TicketBooth();
         booth.buyOneDayPassport(10000);
         Integer sea = booth.getSalesProceeds();
-        log(sea); // should be same as one-day price, visual check here
+        log(sea); // should be same as one-day price, visual check here → 7400
     }
 
     /**
@@ -103,24 +105,24 @@ public class Step05ClassTest extends PlainTestCase {
      * (TwoDayPassport (金額は13200) も買うメソッドを作りましょう (戻り値でお釣りをちゃんと返すように))
      */
     public void test_class_letsFix_makeMethod_twoday() {
-        // comment out after making the method
-        //TicketBooth booth = new TicketBooth();
-        //int money = 14000;
-        //int change = booth.buyTwoDayPassport(money);
-        //Integer sea = booth.getSalesProceeds() + change;
-        //log(sea); // should be same as money
-
-        // and show two-day passport quantity here
+        //        // comment out after making the method
+        //        TicketBooth booth = new TicketBooth();
+        //        int change = booth.buyTwoDayPassport(14000);
+        //        Integer sea = booth.getSalesProceeds() + change;
+        //        log(sea); // should be same as money → 14000(O)
+        //
+        //        // and show two-day passport quantity here
+        //        log(booth.getTwoDayQuantity()); // 9(O)
     }
 
     /**
      * Recycle duplicate logics between one-day and two-day by e.g. private method in class. (And confirm result of both before and after) <br>
      * (OneDayとTwoDayで冗長なロジックがあったら、クラス内のprivateメソッドなどで再利用しましょう (修正前と修正後の実行結果を確認))
      */
-    public void test_class_letsFix_refactor_recycle() {
+    public void test_class_letsFix_refactor_recycle() { // Quentityクラスを作って、Calcの中で共通のロジックを作り、共通で使う形にする
         TicketBooth booth = new TicketBooth();
         booth.buyOneDayPassport(10000);
-        log(booth.getQuantity(), booth.getSalesProceeds()); // should be same as before-fix
+        log(booth.getOneDayQuantity(), booth.getSalesProceeds()); // should be same as before-fix
     }
 
     // ===================================================================================
@@ -132,12 +134,12 @@ public class Step05ClassTest extends PlainTestCase {
      */
     public void test_class_moreFix_return_ticket() {
         // comment out after modifying the method
-        //TicketBooth booth = new TicketBooth();
-        //Ticket oneDayPassport = booth.buyOneDayPassport(10000);
-        //log(oneDayPassport.getDisplayPrice()); // should be same as one-day price
-        //log(oneDayPassport.isAlreadyIn()); // should be false
-        //oneDayPassport.doInPark();
-        //log(oneDayPassport.isAlreadyIn()); // should be true
+        TicketBooth booth = new TicketBooth();
+        Ticket oneDayPassport = booth.buyOneDayPassport(10000);
+        log(oneDayPassport.getDisplayPrice()); // should be same as one-day price
+        log(oneDayPassport.isAlreadyIn()); // should be false
+        oneDayPassport.doInPark();
+        log(oneDayPassport.isAlreadyIn()); // should be true
     }
 
     /**
@@ -146,12 +148,12 @@ public class Step05ClassTest extends PlainTestCase {
      */
     public void test_class_moreFix_return_whole() {
         // comment out after modifying the method
-        //TicketBooth booth = new TicketBooth();
-        //int handedMoney = 20000;
-        //TicketBuyResult twoDayPassportResult = booth.buyTwoDayPassport(handedMoney);
-        //Ticket twoDayPassport = twoDayPassportResult.getTicket();
-        //int change = twoDayPassportResult.getChange();
-        //log(twoDayPassport.getDisplayPrice() + change); // should be same as money
+        TicketBooth booth = new TicketBooth();
+        int handedMoney = 20000;
+        TicketBuyResult twoDayPassportResult = booth.buyTwoDayPassport(handedMoney);
+        Ticket twoDayPassport = twoDayPassportResult.getTicket();
+        int change = twoDayPassportResult.getChange();
+        log(twoDayPassport.getDisplayPrice() + change); // should be same as money
     }
 
     /**
@@ -159,7 +161,17 @@ public class Step05ClassTest extends PlainTestCase {
      * (チケットをもらってもOneDayなのかTwoDayなのか区別が付きません。区別を付けられるメソッドを追加しましょう)
      */
     public void test_class_moreFix_type() {
-        // your confirmation code here
+        TicketBooth booth = new TicketBooth();
+        int handedMoney = 20000;
+        TicketBuyResult passportResult = booth.buyTwoDayPassport(handedMoney);
+        Ticket passport = passportResult.getTicket();
+        if (passport.getType() == Ticket.ONE_DAY_TYPE) {
+            log("You bought one day ticket");
+        } else if (passport.getType() == Ticket.TWO_DAY_TYPE) {
+            log("You bought two day ticket");
+        } else {
+            log("You bought other day ticket");
+        }
     }
 
     // ===================================================================================
@@ -182,7 +194,17 @@ public class Step05ClassTest extends PlainTestCase {
      * </pre>
      */
     public void test_class_moreFix_useInterface() {
-        // your confirmation code here
+        TicketBooth booth = new TicketBooth();
+        int handedMoney = 20000;
+        TicketBuyResult passportResult = booth.buyTwoDayPassport(handedMoney);
+        Ticket passport = passportResult.getTicket();
+        if (passport.getType() == Ticket.ONE_DAY_TYPE) {
+            log("You bought one day ticket");
+        } else if (passport.getType() == Ticket.TWO_DAY_TYPE) {
+            log("You bought two day ticket");
+        } else {
+            log("You bought other day ticket");
+        }
     }
 
     /**

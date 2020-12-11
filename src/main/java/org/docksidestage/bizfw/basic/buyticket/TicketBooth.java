@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2020 the original author or authors.
+ * Copyright 2019-2019 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@ package org.docksidestage.bizfw.basic.buyticket;
 
 /**
  * @author jflute
+ * @author Kim
  */
 public class TicketBooth {
 
@@ -24,13 +25,19 @@ public class TicketBooth {
     //                                                                          Definition
     //                                                                          ==========
     private static final int MAX_QUANTITY = 10;
+
     private static final int ONE_DAY_PRICE = 7400; // when 2019/06/15
+    private static final int TWO_DAY_PRICE = 13200; // when 2019/06/15
 
     // ===================================================================================
     //                                                                           Attribute
-    //                                                                           =========
-    private int quantity = MAX_QUANTITY;
+    //                                          
     private Integer salesProceeds;
+    private final Quantity oneDayQuantity = new Quantity(MAX_QUANTITY);
+    private final Quantity twoDayQuantity = new Quantity(MAX_QUANTITY);
+
+    private final Ticket oneDayTicket = new OneDayTicket(ONE_DAY_PRICE, Ticket.ONE_DAY_TYPE);
+    private final Ticket twoDayTicket = new MultiDayTicket(TWO_DAY_PRICE, Ticket.TWO_DAY_TYPE);
 
     // ===================================================================================
     //                                                                         Constructor
@@ -41,21 +48,42 @@ public class TicketBooth {
     // ===================================================================================
     //                                                                          Buy Ticket
     //                                                                          ==========
-    public void buyOneDayPassport(int handedMoney) {
-        if (quantity <= 0) {
-            throw new TicketSoldOutException("Sold out");
-        }
-        --quantity;
-        if (handedMoney < ONE_DAY_PRICE) {
-            throw new TicketShortMoneyException("Short money: " + handedMoney);
-        }
-        if (salesProceeds != null) {
-            salesProceeds = salesProceeds + handedMoney;
-        } else {
-            salesProceeds = handedMoney;
-        }
+    public Ticket buyOneDayPassport(int handedMoney) {
+        buyPassportCalc(handedMoney, ONE_DAY_PRICE, oneDayQuantity);
+
+        return oneDayTicket;
     }
 
+    public TicketBuyResult buyTwoDayPassport(int handedMoney) {
+        buyPassportCalc(handedMoney, TWO_DAY_PRICE, twoDayQuantity);
+        TicketBuyResult twoDayResult = new TicketBuyResult(twoDayTicket, handedMoney - TWO_DAY_PRICE);
+
+        return twoDayResult;
+    }
+
+    private int buyPassportCalc(int handedMoney, int price, Quantity quantity) {
+        if (quantity.getQuantity() <= 0) {
+            throw new TicketSoldOutException("Sold out");
+        }
+
+        if (handedMoney < price) {
+            throw new TicketShortMoneyException("Short money: " + handedMoney);
+        }
+
+        quantity.decreaseQuantity();
+
+        if (salesProceeds != null) {
+            salesProceeds = salesProceeds + price;
+        } else {
+            salesProceeds = price;
+        }
+
+        return quantity.getQuantity();
+    }
+
+    // ===================================================================================
+    //                                                                            Exception
+    //                                                                            ========
     public static class TicketSoldOutException extends RuntimeException {
 
         private static final long serialVersionUID = 1L;
@@ -77,8 +105,12 @@ public class TicketBooth {
     // ===================================================================================
     //                                                                            Accessor
     //                                                                            ========
-    public int getQuantity() {
-        return quantity;
+    public int getOneDayQuantity() {
+        return oneDayQuantity.getQuantity();
+    }
+
+    public int getTwoDayQuantity() {
+        return twoDayQuantity.getQuantity();
     }
 
     public Integer getSalesProceeds() {

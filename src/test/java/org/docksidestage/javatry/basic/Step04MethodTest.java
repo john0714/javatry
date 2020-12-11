@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2020 the original author or authors.
+ * Copyright 2019-2019 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,15 +35,15 @@ public class Step04MethodTest extends PlainTestCase {
      */
     public void test_method_call_basic() {
         String sea = supplySomething();
-        log(sea); // your answer? =>
+        log(sea); // your answer? => over(O)
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
     public void test_method_call_many() {
-        String sea = functionSomething("mystic");
-        consumeSomething(supplySomething());
-        runnableSomething();
-        log(sea); // your answer? => 
+        String sea = functionSomething("mystic"); // myssys, in function myssys
+        consumeSomething(supplySomething()); // noting return, log: in supply over, in consume mystic
+        runnableSomething(); // noting return, log: in runnable outofshadow
+        log(sea); // your answer? => myssys
     }
 
     private String functionSomething(String name) {
@@ -69,20 +69,20 @@ public class Step04MethodTest extends PlainTestCase {
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
     public void test_method_object() {
-        St4MutableStage mutable = new St4MutableStage();
+        St4MutableStage mutable = new St4MutableStage(); // object
         int sea = 904;
         boolean land = false;
-        helloMutable(sea - 4, land, mutable);
-        if (!land) {
-            sea = sea + mutable.getStageName().length();
+        helloMutable(sea - 4, land, mutable); // 900, false, object and return 901 and sea is 904
+        if (!land) { // land is false
+            sea = sea + mutable.getStageName().length(); // 904 + 6 = 910
         }
-        log(sea); // your answer? => 
+        log(sea); // your answer? => 910(0)
     }
 
     private int helloMutable(int sea, Boolean land, St4MutableStage piari) {
-        sea++;
-        land = true;
-        piari.setStageName("mystic");
+        sea++; // 901
+        land = true; // true
+        piari.setStageName("mystic"); // mystic
         return sea;
     }
 
@@ -109,13 +109,13 @@ public class Step04MethodTest extends PlainTestCase {
     public void test_method_instanceVariable() {
         hasAnnualPassport = true;
         int sea = inParkCount;
-        offAnnualPassport(hasAnnualPassport);
+        offAnnualPassport(hasAnnualPassport); // hasAnnualPassport is true
         for (int i = 0; i < 100; i++) {
-            goToPark();
+            goToPark(); // 1, 2, 3, ... , 100
         }
-        ++sea;
-        sea = inParkCount;
-        log(sea); // your answer? => 
+        ++sea; // 1
+        sea = inParkCount; // 100
+        log(sea); // your answer? => 100
     }
 
     private void offAnnualPassport(boolean hasAnnualPassport) {
@@ -152,12 +152,33 @@ public class Step04MethodTest extends PlainTestCase {
      */
     public void test_method_making() {
         // comment out after making these methods
-        //String replaced = replaceCtoB(replaceAtoB("ABC"));
-        //String sea = addPrefix("broadway", replaced);
-        //if (isAvailableLogging()) {
-        //    showSea(sea);
-        //}
+        String replaced = replaceCtoB(replaceAtoB("ABC"));
+        String sea = addPrefix("broadway", replaced);
+        if (isAvailableLogging()) {
+            showSea(sea); // broadway:BBB
+        }
     }
 
+    private boolean availableLogging = true; // インスタンス変数, 初期値 true
+
     // write methods here
+    private String replaceAtoB(String word) {
+        return word.replace("A", "B");
+    }
+
+    private String replaceCtoB(String word) {
+        return word.replace("C", "B");
+    }
+
+    private String addPrefix(String prefix, String word) {
+        return prefix + ":" + word;
+    }
+
+    private boolean isAvailableLogging() { // この関数を正しく作ったのか気になる
+        return availableLogging;
+    }
+
+    private void showSea(String sea) {
+        log(sea);
+    }
 }

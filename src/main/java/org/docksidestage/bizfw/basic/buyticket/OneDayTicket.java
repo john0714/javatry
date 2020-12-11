@@ -13,59 +13,50 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.docksidestage.bizfw.di.usingdi;
-
-import org.docksidestage.bizfw.basic.objanimal.Animal;
-import org.docksidestage.bizfw.basic.supercar.SupercarDealer;
-import org.docksidestage.bizfw.basic.supercar.SupercarManufacturer.Supercar;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+package org.docksidestage.bizfw.basic.buyticket;
 
 /**
- * @author jflute
+ * @author Kim
  */
-public class UsingDiAccessorAction {
 
-    private static final Logger logger = LoggerFactory.getLogger(UsingDiAccessorAction.class);
-
+public class OneDayTicket implements Ticket {
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    private Animal animal;
-    private SupercarDealer supercarDealer;
+    private final int displayPrice;
+    private boolean alreadyIn;
+    private TicketType type; // 1 = one day, 2 = two day
 
     // ===================================================================================
-    //                                                                         Dog Process
+    //                                                                         Constructor
     //                                                                         ===========
-    public void callFriend() {
-        animal.bark();
-    }
-
-    public void wakeupMe() {
-        animal.bark();
+    public OneDayTicket(int displayPrice, TicketType type) {
+        this.displayPrice = displayPrice;
+        this.type = type;
     }
 
     // ===================================================================================
-    //                                                                    Supercar Process
-    //                                                                    ================
-    public void goToOffice() {
-        Supercar supercar = supercarDealer.orderSupercar("I think...steering wheel is useful on land");
-        logger.debug("Go to office by {}", supercar);
-    }
-
-    public void sendGift() {
-        Supercar supercar = supercarDealer.orderSupercar("I think...steering wheel is useful on land");
-        logger.debug("Send {} to my friend", supercar);
+    //                                                                             In Park
+    //                                                                             =======
+    public void doInPark() {
+        if (alreadyIn) {
+            throw new IllegalStateException("Already in park by this ticket: displayedPrice=" + displayPrice);
+        }
+        alreadyIn = true;
     }
 
     // ===================================================================================
     //                                                                            Accessor
     //                                                                            ========
-    public void setAnimal(Animal animal) {
-        this.animal = animal;
+    public int getDisplayPrice() {
+        return displayPrice;
     }
 
-    public void setSupercarDealer(SupercarDealer supercarDealer) {
-        this.supercarDealer = supercarDealer;
+    public boolean isAlreadyIn() {
+        return alreadyIn;
+    }
+
+    public TicketType getType() {
+        return type;
     }
 }

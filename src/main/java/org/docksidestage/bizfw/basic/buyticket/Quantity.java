@@ -13,49 +13,31 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.docksidestage.bizfw.colorbox.size;
+package org.docksidestage.bizfw.basic.buyticket;
 
 /**
- * @author jflute
+ * @author Kim
  */
-public class BoxSize {
+public class Quantity {
 
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    private final int height;
-    private final int width;
-    private final int depth;
+    private int quantity;
 
-    // ===================================================================================
-    //                                                                         Constructor
-    //                                                                         ===========
-    public BoxSize(int height, int width, int depth) {
-        this.height = height;
-        this.width = width;
-        this.depth = depth;
-    }
-
-    // ===================================================================================
-    //                                                                      Basic Override
-    //                                                                      ==============
-    @Override
-    public String toString() {
-        return "{" + height + ", " + width + ", " + depth + "}";
+    public Quantity(int MAX_QUANTITY) {
+        quantity = MAX_QUANTITY;
     }
 
     // ===================================================================================
     //                                                                            Accessor
     //                                                                            ========
-    public int getHeight() {
-        return height;
+    public boolean decreaseQuantity() {
+        quantity--;
+        return true;
     }
 
-    public int getWidth() {
-        return width;
-    }
-
-    public int getDepth() {
-        return depth;
+    public int getQuantity() {
+        return quantity;
     }
 }

@@ -13,19 +13,13 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.docksidestage.bizfw.di.container.component;
-
-import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+package org.docksidestage.bizfw.basic.buyticket;
 
 /**
  * @author jflute
+ * @author Kim
  */
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.FIELD)
-@Documented
-public @interface SimpleInject {
+
+enum TicketType {
+    ONE, TWO, THREE;
 }

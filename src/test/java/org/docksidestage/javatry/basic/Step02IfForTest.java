@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2020 the original author or authors.
+ * Copyright 2019-2019 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -52,7 +52,7 @@ public class Step02IfForTest extends PlainTestCase {
         } else {
             sea = 7;
         }
-        log(sea); // your answer? => 
+        log(sea); // your answer? => 7
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
@@ -67,7 +67,7 @@ public class Step02IfForTest extends PlainTestCase {
         } else {
             sea = 9;
         }
-        log(sea); // your answer? => 
+        log(sea); // your answer? => 7
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
@@ -78,9 +78,9 @@ public class Step02IfForTest extends PlainTestCase {
             sea = 2001;
         } else if (land && sea >= 904) {
             sea = 7;
-        } else if (sea >= 903 || land) {
+        } else if (sea >= 903 || land) { // 1
             sea = 8;
-            if (!land) {
+            if (!land) { // 2 
                 land = true;
             } else if (sea <= 903) {
                 sea++;
@@ -88,10 +88,10 @@ public class Step02IfForTest extends PlainTestCase {
         } else {
             sea = 9;
         }
-        if (land) {
+        if (land) { // 3
             sea = 10;
         }
-        log(sea); // your answer? => 
+        log(sea); // your answer? => 10
     }
 
     // ===================================================================================
@@ -107,17 +107,17 @@ public class Step02IfForTest extends PlainTestCase {
                 sea = stage;
             }
         }
-        log(sea); // your answer? => 
+        log(sea); // your answer? => dockside
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
     public void test_for_foreach_basic() {
         List<String> stageList = prepareStageList();
         String sea = null;
-        for (String stage : stageList) {
+        for (String stage : stageList) { // 最初から最後までの項目を全部ループ
             sea = stage;
         }
-        log(sea); // your answer? => 
+        log(sea); // your answer? => magiclamp
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
@@ -125,15 +125,15 @@ public class Step02IfForTest extends PlainTestCase {
         List<String> stageList = prepareStageList();
         String sea = null;
         for (String stage : stageList) {
-            if (stage.startsWith("br")) {
+            if (stage.startsWith("br")) { // broadway
                 continue;
             }
-            sea = stage;
-            if (stage.contains("ga")) {
+            sea = stage; // dockside, hangar
+            if (stage.contains("ga")) { //hangar
                 break;
             }
         }
-        log(sea); // your answer? => 
+        log(sea); // your answer? => hangar
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
@@ -141,15 +141,15 @@ public class Step02IfForTest extends PlainTestCase {
         List<String> stageList = prepareStageList();
         StringBuilder sb = new StringBuilder();
         stageList.forEach(stage -> {
-            if (sb.length() > 0) {
+            if (sb.length() > 0) { // hangarの時にdocksideのデータがすでに入っているためreturn
                 return;
             }
-            if (stage.contains("i")) {
+            if (stage.contains("i")) { // dockside
                 sb.append(stage);
             }
         });
         String sea = sb.toString();
-        log(sea); // your answer? => 
+        log(sea); // your answer? => dockside
     }
 
     // ===================================================================================
@@ -161,6 +161,16 @@ public class Step02IfForTest extends PlainTestCase {
      */
     public void test_iffor_making() {
         // write if-for here
+        List<String> stageList = prepareStageList();
+        List<String> aList = new ArrayList<>();
+        for (String stage : stageList) {
+            if (stage.contains("a")) {
+                aList.add(stage);
+            }
+        }
+        for (String a : aList) {
+            log(a);
+        }
     }
 
     // ===================================================================================
@@ -182,7 +192,10 @@ public class Step02IfForTest extends PlainTestCase {
                 break;
             }
         }
-        log(sea); // should be same as before-fix
+        log(sea);
+        // hangar
+        // hangar2
+        // magiclamp
     }
 
     /**
@@ -196,7 +209,22 @@ public class Step02IfForTest extends PlainTestCase {
      * </pre>
      */
     public void test_iffor_yourExercise() {
-        // write your code here
+        List<String> stageList = prepareStageList();
+        StringBuilder sea = new StringBuilder();
+        stageList.forEach(stage -> {
+            if (stage.startsWith("br")) {
+                return; // same to continue
+            }
+            if (sea.indexOf("ga") != -1) {
+                return; // result is same but not same to break
+            }
+            sea.replace(0, sea.length(), stage); // 入れ替え
+        });
+        log(sea);
+        // original - hangar - OK
+        // 追加条件 - 1. "ga" が含まれているものがもう一つある - hangar2 - OK
+        // 追加条件 - 2. "ga" が含まれているものが一つもない  - magiclamp - OK
+        // forEachメソッド()とforeachの差を確認するのが目的(arrayListのforEachは単なるメソッドなので使う方法が制限されているのが多いとか)
     }
 
     // ===================================================================================
@@ -207,6 +235,24 @@ public class Step02IfForTest extends PlainTestCase {
         stageList.add("broadway");
         stageList.add("dockside");
         stageList.add("hangar");
+        stageList.add("magiclamp");
+        return stageList;
+    }
+
+    private List<String> prepareStageList2() {
+        List<String> stageList = new ArrayList<>();
+        stageList.add("broadway");
+        stageList.add("dockside");
+        stageList.add("hangar2");
+        stageList.add("hangar");
+        stageList.add("magiclamp");
+        return stageList;
+    }
+
+    private List<String> prepareStageList3() {
+        List<String> stageList = new ArrayList<>();
+        stageList.add("broadway");
+        stageList.add("dockside");
         stageList.add("magiclamp");
         return stageList;
     }
