@@ -15,11 +15,23 @@
  */
 package org.docksidestage.bizfw.basic.buyticket;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
- * @author jflute
  * @author Kim
  */
 
-public enum TicketType {
-    ONE, TWO, FOUR;
+public class TicketDay {
+    private Map<TicketType, Integer> TicketDays = new HashMap<>();
+
+    TicketDay() {
+        TicketDays.put(TicketType.ONE, 1);
+        TicketDays.put(TicketType.TWO, 2);
+        TicketDays.put(TicketType.FOUR, 4);
+    }
+
+    public Integer getTicketDay(TicketType T) {
+        return TicketDays.get(T);
+    }
 }

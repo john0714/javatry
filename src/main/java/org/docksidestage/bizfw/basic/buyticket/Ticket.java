@@ -27,6 +27,7 @@ public interface Ticket {
     //                                                                          ==========
     public static final TicketType ONE_DAY_TYPE = TicketType.ONE;
     public static final TicketType TWO_DAY_TYPE = TicketType.TWO;
+    public static final TicketType FOUR_DAY_TYPE = TicketType.FOUR;
 
     // ===================================================================================
     //                                                                             In Park

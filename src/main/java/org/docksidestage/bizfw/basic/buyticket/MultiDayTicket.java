@@ -24,8 +24,9 @@ public class MultiDayTicket implements Ticket {
     //                                                                           Attribute
     //                                                                           =========
     private final int displayPrice;
+    private final TicketType type;
+    private final TicketDay days = new TicketDay();
     private boolean alreadyIn;
-    private TicketType type;
     private int entrance;
 
     // ===================================================================================
@@ -34,18 +35,22 @@ public class MultiDayTicket implements Ticket {
     public MultiDayTicket(int displayPrice, TicketType type) {
         this.displayPrice = displayPrice;
         this.type = type;
-        this.entrance = 0; // ここに入場回数を設定....どうやって？
+        this.entrance = days.getTicketDay(type);
     }
 
     // ===================================================================================
     //                                                                             In Park
     //                                                                             =======
     public void doInPark() {
-        entrance++;
-
         if (alreadyIn) {
             throw new IllegalStateException("Already in park by this ticket: displayedPrice=" + displayPrice);
         }
+
+        if (entrance == 0) {
+            throw new IllegalStateException("entrance count is done by this ticket: displayedPrice=" + displayPrice);
+        }
+
+        entrance--;
         alreadyIn = true;
     }
 
@@ -62,5 +67,9 @@ public class MultiDayTicket implements Ticket {
 
     public TicketType getType() {
         return type;
+    }
+
+    public int getEntrance() {
+        return entrance;
     }
 }

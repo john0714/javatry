@@ -26,8 +26,9 @@ public class TicketBooth {
     //                                                                          ==========
     private static final int MAX_QUANTITY = 10;
 
-    private static final int ONE_DAY_PRICE = 7400; // when 2019/06/15
-    private static final int TWO_DAY_PRICE = 13200; // when 2019/06/15
+    private static final int ONE_DAY_PRICE = 7400;
+    private static final int TWO_DAY_PRICE = 13200;
+    private static final int FOUR_DAY_PRICE = 22400;
 
     // ===================================================================================
     //                                                                           Attribute
@@ -35,9 +36,11 @@ public class TicketBooth {
     private Integer salesProceeds;
     private final Quantity oneDayQuantity = new Quantity(MAX_QUANTITY);
     private final Quantity twoDayQuantity = new Quantity(MAX_QUANTITY);
+    private final Quantity fourDayQuantity = new Quantity(MAX_QUANTITY);
 
     private final Ticket oneDayTicket = new OneDayTicket(ONE_DAY_PRICE, Ticket.ONE_DAY_TYPE);
     private final Ticket twoDayTicket = new MultiDayTicket(TWO_DAY_PRICE, Ticket.TWO_DAY_TYPE);
+    private final Ticket fourDayTicket = new MultiDayTicket(FOUR_DAY_PRICE, Ticket.FOUR_DAY_TYPE);
 
     // ===================================================================================
     //                                                                         Constructor
@@ -59,6 +62,13 @@ public class TicketBooth {
         TicketBuyResult twoDayResult = new TicketBuyResult(twoDayTicket, handedMoney - TWO_DAY_PRICE);
 
         return twoDayResult;
+    }
+
+    public TicketBuyResult buyFourDayPassport(int handedMoney) {
+        buyPassportCalc(handedMoney, FOUR_DAY_PRICE, fourDayQuantity);
+        TicketBuyResult fourDayResult = new TicketBuyResult(fourDayTicket, handedMoney - FOUR_DAY_PRICE);
+
+        return fourDayResult;
     }
 
     private int buyPassportCalc(int handedMoney, int price, Quantity quantity) {
@@ -111,6 +121,10 @@ public class TicketBooth {
 
     public int getTwoDayQuantity() {
         return twoDayQuantity.getQuantity();
+    }
+
+    public int getFourDayQuantity() {
+        return fourDayQuantity.getQuantity();
     }
 
     public Integer getSalesProceeds() {

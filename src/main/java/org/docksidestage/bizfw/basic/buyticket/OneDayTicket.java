@@ -25,7 +25,7 @@ public class OneDayTicket implements Ticket {
     //                                                                           =========
     private final int displayPrice;
     private boolean alreadyIn;
-    private TicketType type; // 1 = one day, 2 = two day
+    private TicketType type;
 
     // ===================================================================================
     //                                                                         Constructor
