@@ -21,5 +21,16 @@ package org.docksidestage.bizfw.basic.buyticket;
  */
 
 public enum TicketType {
-    ONE, TWO, FOUR;
+    ONE(1), TWO(2), FOUR(4);
+
+    // add getDays(done) and delete TicketDay class
+    final private int day;
+
+    TicketType(int day) {
+        this.day = day;
+    }
+
+    public int getDays() {
+        return day;
+    }
 }

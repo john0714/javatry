@@ -27,7 +27,6 @@ public class MultiDayTicket implements Ticket {
     //                                                                           =========
     private final int displayPrice;
     private final TicketType type;
-    private final TicketDay days = new TicketDay(); // これをインスタンスに移動
     private boolean alreadyIn;
     private int entrance;
 
