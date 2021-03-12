@@ -35,11 +35,6 @@ public class TicketBooth {
     private final Quantity threeDayQuantity = new Quantity(MAX_QUANTITY);
     private final Quantity fourDayQuantity = new Quantity(MAX_QUANTITY);
 
-    private final Ticket oneDayTicket = new OneDayTicket(TicketType.ONE);
-    private final Ticket twoDayTicket = new MultiDayTicket(TicketType.TWO);
-    private final Ticket threeDayTicket = new MultiDayTicket(TicketType.THREE);
-    private final Ticket fourDayTicket = new MultiDayTicket(TicketType.FOUR);
-
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
@@ -50,23 +45,22 @@ public class TicketBooth {
     //                                                                          Buy Ticket
     //                                                                          ==========
     public Ticket buyOneDayPassport(int handedMoney) {
-        TicketBuyResult result = buyPassportCalc(handedMoney, oneDayTicket, oneDayQuantity);
+        TicketBuyResult result = buyPassportCalc(handedMoney, new OneDayTicket(TicketType.ONE), oneDayQuantity);
         return result.getTicket();
     }
 
     public TicketBuyResult buyTwoDayPassport(int handedMoney) {
-        return buyPassportCalc(handedMoney, twoDayTicket, twoDayQuantity);
+        return buyPassportCalc(handedMoney, new MultiDayTicket(TicketType.TWO), twoDayQuantity);
     }
 
     public TicketBuyResult buyThreeDayPassport(int handedMoney) {
-        return buyPassportCalc(handedMoney, threeDayTicket, threeDayQuantity);
+        return buyPassportCalc(handedMoney, new MultiDayTicket(TicketType.THREE), threeDayQuantity);
     }
 
     public TicketBuyResult buyFourDayPassport(int handedMoney) {
-        return buyPassportCalc(handedMoney, fourDayTicket, fourDayQuantity);
+        return buyPassportCalc(handedMoney, new MultiDayTicket(TicketType.FOUR), fourDayQuantity);
     }
 
-    // 戻り値を、TicketBuyResultにする。
     private TicketBuyResult buyPassportCalc(int handedMoney, Ticket ticket, Quantity quantity) {
         int price = ticket.getDisplayPrice();
         int change = handedMoney - price; // おつり
