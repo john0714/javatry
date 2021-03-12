@@ -232,6 +232,20 @@ public class Step05ClassTest extends PlainTestCase {
      * (その他、気になるところがあったらリファクタリングしてみましょう (例えば、バランスの良いメソッド名や変数名になっていますか？))
      */
     public void test_class_moreFix_yourRefactoring() {
-        // write confirmation code here
+        TicketBooth booth = new TicketBooth();
+        int handedMoney = 30000;
+        TicketBuyResult passportResult = booth.buyThreeDayPassport(handedMoney);
+        Ticket passport = passportResult.getTicket();
+        if (passport.getType() == Ticket.ONE_DAY_TYPE) {
+            log("You bought one day ticket");
+        } else if (passport.getType() == Ticket.TWO_DAY_TYPE) {
+            log("You bought two day ticket");
+        } else if (passport.getType() == Ticket.THREE_DAY_TYPE) {
+            log("You bought three day ticket");
+        } else if (passport.getType() == Ticket.FOUR_DAY_TYPE) {
+            log("You bought four day ticket");
+        } else {
+            log("You bought other day ticket");
+        }
     }
 }

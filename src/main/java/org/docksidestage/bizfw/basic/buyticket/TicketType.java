@@ -21,11 +21,11 @@ package org.docksidestage.bizfw.basic.buyticket;
  */
 
 public enum TicketType {
-    ONE(1), TWO(2), FOUR(4);
+    ONE(1), TWO(2), THREE(3), FOUR(4);
 
-    // add getDays(done) and delete TicketDay class
     final private int day;
 
+    // constructor
     TicketType(int day) {
         this.day = day;
     }

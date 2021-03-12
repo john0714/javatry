@@ -28,6 +28,7 @@ public class TicketBooth {
 
     private static final int ONE_DAY_PRICE = 7400;
     private static final int TWO_DAY_PRICE = 13200;
+    private static final int THREE_DAY_PRICE = 17800;
     private static final int FOUR_DAY_PRICE = 22400;
 
     // ===================================================================================
@@ -36,10 +37,12 @@ public class TicketBooth {
     private Integer salesProceeds;
     private final Quantity oneDayQuantity = new Quantity(MAX_QUANTITY);
     private final Quantity twoDayQuantity = new Quantity(MAX_QUANTITY);
+    private final Quantity threeDayQuantity = new Quantity(MAX_QUANTITY);
     private final Quantity fourDayQuantity = new Quantity(MAX_QUANTITY);
 
     private final Ticket oneDayTicket = new OneDayTicket(ONE_DAY_PRICE, Ticket.ONE_DAY_TYPE);
     private final Ticket twoDayTicket = new MultiDayTicket(TWO_DAY_PRICE, Ticket.TWO_DAY_TYPE);
+    private final Ticket threeDayTicket = new MultiDayTicket(THREE_DAY_PRICE, Ticket.THREE_DAY_TYPE);
     private final Ticket fourDayTicket = new MultiDayTicket(FOUR_DAY_PRICE, Ticket.FOUR_DAY_TYPE);
 
     // ===================================================================================
@@ -62,6 +65,13 @@ public class TicketBooth {
         TicketBuyResult twoDayResult = new TicketBuyResult(twoDayTicket, handedMoney - TWO_DAY_PRICE);
 
         return twoDayResult;
+    }
+
+    public TicketBuyResult buyThreeDayPassport(int handedMoney) {
+        buyPassportCalc(handedMoney, THREE_DAY_PRICE, threeDayQuantity);
+        TicketBuyResult threeDayResult = new TicketBuyResult(threeDayTicket, handedMoney - THREE_DAY_PRICE);
+
+        return threeDayResult;
     }
 
     public TicketBuyResult buyFourDayPassport(int handedMoney) {
