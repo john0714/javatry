@@ -26,11 +26,6 @@ public class TicketBooth {
     //                                                                          ==========
     private static final int MAX_QUANTITY = 10;
 
-    private static final int ONE_DAY_PRICE = 7400;
-    private static final int TWO_DAY_PRICE = 13200;
-    private static final int THREE_DAY_PRICE = 17800;
-    private static final int FOUR_DAY_PRICE = 22400;
-
     // ===================================================================================
     //                                                                           Attribute
     //                                          
@@ -40,10 +35,10 @@ public class TicketBooth {
     private final Quantity threeDayQuantity = new Quantity(MAX_QUANTITY);
     private final Quantity fourDayQuantity = new Quantity(MAX_QUANTITY);
 
-    private final Ticket oneDayTicket = new OneDayTicket(ONE_DAY_PRICE, TicketType.ONE);
-    private final Ticket twoDayTicket = new MultiDayTicket(TWO_DAY_PRICE, TicketType.TWO);
-    private final Ticket threeDayTicket = new MultiDayTicket(THREE_DAY_PRICE, TicketType.THREE);
-    private final Ticket fourDayTicket = new MultiDayTicket(FOUR_DAY_PRICE, TicketType.FOUR);
+    private final Ticket oneDayTicket = new OneDayTicket(TicketType.ONE);
+    private final Ticket twoDayTicket = new MultiDayTicket(TicketType.TWO);
+    private final Ticket threeDayTicket = new MultiDayTicket(TicketType.THREE);
+    private final Ticket fourDayTicket = new MultiDayTicket(TicketType.FOUR);
 
     // ===================================================================================
     //                                                                         Constructor
@@ -55,34 +50,27 @@ public class TicketBooth {
     //                                                                          Buy Ticket
     //                                                                          ==========
     public Ticket buyOneDayPassport(int handedMoney) {
-        buyPassportCalc(handedMoney, ONE_DAY_PRICE, oneDayQuantity);
-
-        return oneDayTicket;
+        TicketBuyResult result = buyPassportCalc(handedMoney, oneDayTicket, oneDayQuantity);
+        return result.getTicket();
     }
 
     public TicketBuyResult buyTwoDayPassport(int handedMoney) {
-        buyPassportCalc(handedMoney, TWO_DAY_PRICE, twoDayQuantity);
-        TicketBuyResult twoDayResult = new TicketBuyResult(twoDayTicket, handedMoney - TWO_DAY_PRICE);
-
-        return twoDayResult;
+        return buyPassportCalc(handedMoney, twoDayTicket, twoDayQuantity);
     }
 
     public TicketBuyResult buyThreeDayPassport(int handedMoney) {
-        buyPassportCalc(handedMoney, THREE_DAY_PRICE, threeDayQuantity);
-        TicketBuyResult threeDayResult = new TicketBuyResult(threeDayTicket, handedMoney - THREE_DAY_PRICE);
-
-        return threeDayResult;
+        return buyPassportCalc(handedMoney, threeDayTicket, threeDayQuantity);
     }
 
     public TicketBuyResult buyFourDayPassport(int handedMoney) {
-        buyPassportCalc(handedMoney, FOUR_DAY_PRICE, fourDayQuantity); // これをreturnするだけでできるように。
-        TicketBuyResult fourDayResult = new TicketBuyResult(fourDayTicket, handedMoney - FOUR_DAY_PRICE);
-
-        return fourDayResult;
+        return buyPassportCalc(handedMoney, fourDayTicket, fourDayQuantity);
     }
 
     // 戻り値を、TicketBuyResultにする。
-    private int buyPassportCalc(int handedMoney, int price, Quantity quantity) {
+    private TicketBuyResult buyPassportCalc(int handedMoney, Ticket ticket, Quantity quantity) {
+        int price = ticket.getDisplayPrice();
+        int change = handedMoney - price; // おつり
+
         if (quantity.getQuantity() <= 0) {
             throw new TicketSoldOutException("Sold out");
         }
@@ -99,7 +87,7 @@ public class TicketBooth {
             salesProceeds = price;
         }
 
-        return quantity.getQuantity();
+        return new TicketBuyResult(ticket, change);
     }
 
     // ===================================================================================

@@ -33,8 +33,8 @@ public class MultiDayTicket implements Ticket {
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public MultiDayTicket(int displayPrice, TicketType type) {
-        this.displayPrice = displayPrice;
+    public MultiDayTicket(TicketType type) {
+        this.displayPrice = type.getPrice();
         this.type = type;
         this.entrance = type.getDays();
     }

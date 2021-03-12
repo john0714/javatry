@@ -30,8 +30,8 @@ public class OneDayTicket implements Ticket {
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public OneDayTicket(int displayPrice, TicketType type) {
-        this.displayPrice = displayPrice;
+    public OneDayTicket(TicketType type) {
+        this.displayPrice = type.getPrice();
         this.type = type;
     }
 

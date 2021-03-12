@@ -135,7 +135,7 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         // _/_/_/_/_/_/_/_/_/_/
         //Ticket ticket = booth.buyOneDayPassport(10000);
         booth.buyOneDayPassport(10000); // as temporary, remove if you finished steo05
-        Ticket ticket = new OneDayTicket(7400, TicketType.ONE); // also here
+        Ticket ticket = new OneDayTicket(TicketType.ONE); // also here
 
         // *buyOneDayPassport() has this process:
         //if (quantity <= 0) {
