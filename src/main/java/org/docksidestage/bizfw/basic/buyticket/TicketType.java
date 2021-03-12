@@ -21,16 +21,22 @@ package org.docksidestage.bizfw.basic.buyticket;
  */
 
 public enum TicketType {
-    ONE(1), TWO(2), THREE(3), FOUR(4);
+    ONE(1, 7400), TWO(2, 13200), THREE(3, 17800), FOUR(4, 22400);
 
-    final private int day;
+    final private int days;
+    final private int price;
 
     // constructor
-    TicketType(int day) {
-        this.day = day;
+    TicketType(int days, int price) {
+        this.days = days;
+        this.price = price;
     }
 
     public int getDays() {
-        return day;
+        return days;
+    }
+
+    public int getPrice() {
+        return price;
     }
 }

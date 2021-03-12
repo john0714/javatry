@@ -19,6 +19,7 @@ import org.docksidestage.bizfw.basic.buyticket.Ticket;
 import org.docksidestage.bizfw.basic.buyticket.TicketBooth;
 import org.docksidestage.bizfw.basic.buyticket.TicketBooth.TicketShortMoneyException;
 import org.docksidestage.bizfw.basic.buyticket.TicketBuyResult;
+import org.docksidestage.bizfw.basic.buyticket.TicketType;
 import org.docksidestage.unit.PlainTestCase;
 
 /**
@@ -165,9 +166,9 @@ public class Step05ClassTest extends PlainTestCase {
         int handedMoney = 20000;
         TicketBuyResult passportResult = booth.buyTwoDayPassport(handedMoney);
         Ticket passport = passportResult.getTicket();
-        if (passport.getType() == Ticket.ONE_DAY_TYPE) {
+        if (passport.getType() == TicketType.ONE) {
             log("You bought one day ticket");
-        } else if (passport.getType() == Ticket.TWO_DAY_TYPE) {
+        } else if (passport.getType() == TicketType.TWO) {
             log("You bought two day ticket");
         } else {
             log("You bought other day ticket");
@@ -198,9 +199,9 @@ public class Step05ClassTest extends PlainTestCase {
         int handedMoney = 20000;
         TicketBuyResult passportResult = booth.buyTwoDayPassport(handedMoney);
         Ticket passport = passportResult.getTicket();
-        if (passport.getType() == Ticket.ONE_DAY_TYPE) {
+        if (passport.getType() == TicketType.ONE) {
             log("You bought one day ticket");
-        } else if (passport.getType() == Ticket.TWO_DAY_TYPE) {
+        } else if (passport.getType() == TicketType.TWO) {
             log("You bought two day ticket");
         } else {
             log("You bought other day ticket");
@@ -216,11 +217,11 @@ public class Step05ClassTest extends PlainTestCase {
         int handedMoney = 30000;
         TicketBuyResult passportResult = booth.buyFourDayPassport(handedMoney);
         Ticket passport = passportResult.getTicket();
-        if (passport.getType() == Ticket.ONE_DAY_TYPE) {
+        if (passport.getType() == TicketType.ONE) {
             log("You bought one day ticket");
-        } else if (passport.getType() == Ticket.TWO_DAY_TYPE) {
+        } else if (passport.getType() == TicketType.TWO) {
             log("You bought two day ticket");
-        } else if (passport.getType() == Ticket.FOUR_DAY_TYPE) {
+        } else if (passport.getType() == TicketType.FOUR) {
             log("You bought four day ticket");
         } else {
             log("You bought other day ticket");
@@ -236,13 +237,13 @@ public class Step05ClassTest extends PlainTestCase {
         int handedMoney = 30000;
         TicketBuyResult passportResult = booth.buyThreeDayPassport(handedMoney);
         Ticket passport = passportResult.getTicket();
-        if (passport.getType() == Ticket.ONE_DAY_TYPE) {
+        if (passport.getType() == TicketType.ONE) {
             log("You bought one day ticket");
-        } else if (passport.getType() == Ticket.TWO_DAY_TYPE) {
+        } else if (passport.getType() == TicketType.TWO) {
             log("You bought two day ticket");
-        } else if (passport.getType() == Ticket.THREE_DAY_TYPE) {
+        } else if (passport.getType() == TicketType.THREE) {
             log("You bought three day ticket");
-        } else if (passport.getType() == Ticket.FOUR_DAY_TYPE) {
+        } else if (passport.getType() == TicketType.FOUR) {
             log("You bought four day ticket");
         } else {
             log("You bought other day ticket");

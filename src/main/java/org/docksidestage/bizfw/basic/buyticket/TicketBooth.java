@@ -40,10 +40,10 @@ public class TicketBooth {
     private final Quantity threeDayQuantity = new Quantity(MAX_QUANTITY);
     private final Quantity fourDayQuantity = new Quantity(MAX_QUANTITY);
 
-    private final Ticket oneDayTicket = new OneDayTicket(ONE_DAY_PRICE, Ticket.ONE_DAY_TYPE);
-    private final Ticket twoDayTicket = new MultiDayTicket(TWO_DAY_PRICE, Ticket.TWO_DAY_TYPE);
-    private final Ticket threeDayTicket = new MultiDayTicket(THREE_DAY_PRICE, Ticket.THREE_DAY_TYPE);
-    private final Ticket fourDayTicket = new MultiDayTicket(FOUR_DAY_PRICE, Ticket.FOUR_DAY_TYPE);
+    private final Ticket oneDayTicket = new OneDayTicket(ONE_DAY_PRICE, TicketType.ONE);
+    private final Ticket twoDayTicket = new MultiDayTicket(TWO_DAY_PRICE, TicketType.TWO);
+    private final Ticket threeDayTicket = new MultiDayTicket(THREE_DAY_PRICE, TicketType.THREE);
+    private final Ticket fourDayTicket = new MultiDayTicket(FOUR_DAY_PRICE, TicketType.FOUR);
 
     // ===================================================================================
     //                                                                         Constructor
@@ -75,12 +75,13 @@ public class TicketBooth {
     }
 
     public TicketBuyResult buyFourDayPassport(int handedMoney) {
-        buyPassportCalc(handedMoney, FOUR_DAY_PRICE, fourDayQuantity);
+        buyPassportCalc(handedMoney, FOUR_DAY_PRICE, fourDayQuantity); // これをreturnするだけでできるように。
         TicketBuyResult fourDayResult = new TicketBuyResult(fourDayTicket, handedMoney - FOUR_DAY_PRICE);
 
         return fourDayResult;
     }
 
+    // 戻り値を、TicketBuyResultにする。
     private int buyPassportCalc(int handedMoney, int price, Quantity quantity) {
         if (quantity.getQuantity() <= 0) {
             throw new TicketSoldOutException("Sold out");
