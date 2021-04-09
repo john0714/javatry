@@ -69,11 +69,13 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         --quantity;
         salesProceeds = handedMoney;
 
+        // この上にある、残り一つの間違いを探そう。
+
         //
         // [ticket info]
         //
-        int displayPrice = quantity; // 1.チケット数がdisplayPriceに入っている
-        boolean alreadyIn = false; // 2.この処理は出る時にやる
+        int displayPrice = quantity; // 2.チケット数がdisplayPriceに入っている
+        boolean alreadyIn = false;
 
         // other processes here...
         // ...
