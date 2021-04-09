@@ -21,14 +21,14 @@ package org.docksidestage.bizfw.basic.buyticket;
 
 public class MultiDayTicket implements Ticket {
 
-    // TODO 次回は早めにレビューをもらう予定
+    // Done 次回は早めにレビューをもらう予定
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
     private final int displayPrice;
     private final TicketType type;
     private boolean alreadyIn;
-    private int entrance;
+    private int entranceAbleCount;
 
     // ===================================================================================
     //                                                                         Constructor
@@ -36,7 +36,7 @@ public class MultiDayTicket implements Ticket {
     public MultiDayTicket(TicketType type) {
         this.displayPrice = type.getPrice();
         this.type = type;
-        this.entrance = type.getDays();
+        this.entranceAbleCount = type.getDays();
     }
 
     // ===================================================================================
@@ -47,11 +47,11 @@ public class MultiDayTicket implements Ticket {
             throw new IllegalStateException("Already in park by this ticket: displayedPrice=" + displayPrice);
         }
 
-        if (entrance == 0) {
+        if (entranceAbleCount == 0) {
             throw new IllegalStateException("entrance count is done by this ticket: displayedPrice=" + displayPrice);
         }
 
-        entrance--;
+        entranceAbleCount--;
         alreadyIn = true;
     }
 
@@ -70,7 +70,7 @@ public class MultiDayTicket implements Ticket {
         return type;
     }
 
-    public int getEntrance() {
-        return entrance;
+    public int getEntranceAbleCount() {
+        return entranceAbleCount;
     }
 }

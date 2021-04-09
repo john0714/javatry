@@ -116,6 +116,10 @@ public class TicketBooth {
         return twoDayQuantity.getQuantity();
     }
 
+    public int getThreeDayQuantity() {
+        return threeDayQuantity.getQuantity();
+    }
+
     public int getFourDayQuantity() {
         return fourDayQuantity.getQuantity();
     }
