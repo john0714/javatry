@@ -72,8 +72,8 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         //
         // [ticket info]
         //
-        int displayPrice = quantity;
-        boolean alreadyIn = false;
+        int displayPrice = quantity; // 1.チケット数がdisplayPriceに入っている
+        boolean alreadyIn = false; // 2.この処理は出る時にやる
 
         // other processes here...
         // ...
@@ -90,14 +90,14 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         //
         // [final process]
         //
-        saveBuyingHistory(quantity, displayPrice, salesProceeds, alreadyIn);
+        saveBuyingHistory(quantity, displayPrice, salesProceeds, alreadyIn); // 3.displayPriceとsalesProceedsが逆
     }
 
     private void saveBuyingHistory(int quantity, Integer salesProceeds, int displayPrice, boolean alreadyIn) {
         if (alreadyIn) {
             // only logging here (normally e.g. DB insert)
-            showTicketBooth(displayPrice, salesProceeds);
-            showYourTicket(quantity, alreadyIn);
+            showTicketBooth(displayPrice, salesProceeds); // 4.showTicketBoothの引数とは違う
+            showYourTicket(quantity, alreadyIn); // 5.showYourTicketの引数とは違う
         }
     }
 
