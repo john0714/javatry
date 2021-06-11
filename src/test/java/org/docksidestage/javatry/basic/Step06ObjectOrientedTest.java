@@ -68,6 +68,7 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         }
         --quantity;
         salesProceeds = handedMoney;
+        handedMoney = handedMoney - oneDayPrice;
 
         // この上にある、残り一つの間違いを探そう。
 
