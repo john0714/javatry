@@ -67,8 +67,7 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
             throw new IllegalStateException("Short money: handedMoney=" + handedMoney);
         }
         --quantity;
-        salesProceeds = handedMoney;
-        handedMoney = handedMoney - oneDayPrice;
+        salesProceeds = handedMoney; // 1. 売上はhadedMoneyではなくoneDayPrice
 
         // この上にある、残り一つの間違いを探そう。
 
