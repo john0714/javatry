@@ -69,7 +69,7 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         --quantity;
         salesProceeds = handedMoney; // 1. 売上はhadedMoneyではなくoneDayPrice
 
-        // この上にある、残り一つの間違いを探そう。
+        // この下に最後の間違いあります。（一つ）
 
         //
         // [ticket info]
@@ -92,13 +92,13 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         //
         // [final process]
         //
-        saveBuyingHistory(quantity, displayPrice, salesProceeds, alreadyIn); // 3.displayPriceとsalesProceedsが逆
+        saveBuyingHistory(quantity, displayPrice, salesProceeds, alreadyIn); // 4.displayPriceとsalesProceedsが逆
     }
 
     private void saveBuyingHistory(int quantity, Integer salesProceeds, int displayPrice, boolean alreadyIn) {
         if (alreadyIn) {
             // only logging here (normally e.g. DB insert)
-            showTicketBooth(displayPrice, salesProceeds); // 4.showTicketBoothの引数とは違う
+            showTicketBooth(displayPrice, salesProceeds); // 5.showTicketBoothの引数とは違う
             showYourTicket(quantity, alreadyIn); // 5.showYourTicketの引数とは違う
         }
     }
