@@ -69,8 +69,6 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         --quantity;
         salesProceeds = handedMoney; // 1. 売上はhadedMoneyではなくoneDayPrice
 
-        // この下に最後の間違いあります。（一つ）
-
         //
         // [ticket info]
         //
@@ -85,7 +83,7 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         // [do in park now!!!]
         //
         if (alreadyIn) {
-            throw new IllegalStateException("Already in park by this ticket: displayPrice=" + quantity);
+            throw new IllegalStateException("Already in park by this ticket: displayPrice=" + quantity); // 3. quentityではなく、displayPrice
         }
         alreadyIn = true;
 
